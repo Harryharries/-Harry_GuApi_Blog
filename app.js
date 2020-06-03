@@ -1,11 +1,16 @@
 const express = require('express');
 
+//body-parser to handle post request param
+const bodyPasrser = require('body-parser');
+
 //path handling
 const path = require('path');
 //create server
 const app = express();
 
 require('./model/connect')
+
+app.use(bodyPasrser.urlencoded({ extended: false }))
 
 //require('./model/user')
 
@@ -16,7 +21,7 @@ app.set('view engine', 'art');
 // define the tamplate engine
 app.engine('art', require('express-art-template'));
 
-//use static resource
+//use static resource all of resource is in the dir
 app.use(express.static(path.join(__dirname, 'public')));
 
 const home = require('./route/home');

@@ -31,17 +31,17 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-User.create({
-    username: 'Harryharries',
-    email: 'harry.guapi@gmail.com',
-    password: 'QWER1234',
-    role: 'admin',
-    state: 0
-}).then((user) => {
-    console.log('Created a New User: ' + user)
-}).catch(() => {
-    console.log('fail to created')
-})
+// User.create({
+//     username: 'Harryharries',
+//     email: 'harry.guapi@gmail.com',
+//     password: 'QWER1234',
+//     role: 'admin',
+//     state: 0
+// }).then((user) => {
+//     console.log('Created a New User: ' + user)
+// }).catch(() => {
+//     console.log('fail to created')
+// })
 
 module.exports = {
     User
