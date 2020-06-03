@@ -5,6 +5,10 @@ const path = require('path');
 //create server
 const app = express();
 
+require('./model/connect')
+
+//require('./model/user')
+
 // tell express where is the tamplate
 app.set('views', path.join(__dirname, 'views'))
     // tell express where is the default place
