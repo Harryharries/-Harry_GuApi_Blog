@@ -1,6 +1,8 @@
 // create user collection
 const mongoose = require('mongoose');
 
+const bcrypt = require('bcrypt');
+
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -31,17 +33,20 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-// User.create({
-//     username: 'Harryharries',
-//     email: 'harry.guapi@gmail.com',
-//     password: 'QWER1234',
-//     role: 'admin',
-//     state: 0
-// }).then((user) => {
-//     console.log('Created a New User: ' + user)
-// }).catch(() => {
-//     console.log('fail to created')
-// })
+async function createUser() {
+    const salt = await bcrypt.genSalt(10);
+    const pass = await bcrypt.hash('QWER1234', salt);
+
+    const user = await User.create({
+        username: 'Harryharries',
+        email: 'harry.guapi@gmail.com',
+        password: pass,
+        role: 'admin',
+        state: 0
+    })
+}
+
+//createUser();
 
 module.exports = {
     User

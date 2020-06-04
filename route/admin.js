@@ -1,5 +1,7 @@
 const express = require('express');
 
+const bcrypt = require('bcrypt');
+
 //import user collection constructor
 const { User } = require('../model/user')
 
@@ -23,8 +25,9 @@ admin.post('/login', async(req, res) => {
     let user = await User.findOne({ email: email })
 
     if (user) {
-        //email matched: check password
-        if (password == user.password) {
+        //after email matched: check password after encryption
+        let passwordCheck = await bcrypt.compare(password, user.password);
+        if (passwordCheck) {
             res.send("login success")
         } else {
             return res.status(400).render('admin/error', { msg: "password error, will return to login in 2s" })
