@@ -3,15 +3,22 @@ const express = require('express');
 //body-parser to handle post request param
 const bodyPasrser = require('body-parser');
 
-//path handling
+const session = require('express-session')
+    //path handling
 const path = require('path');
 //create server
 const app = express();
 
 require('./model/connect')
 
-app.use(bodyPasrser.urlencoded({ extended: false }))
+app.use(bodyPasrser.urlencoded({ extended: false }));
 
+//configure session
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'harry Secret key'
+}));
 //require('./model/user')
 
 // tell express where is the tamplate
@@ -26,6 +33,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const home = require('./route/home');
 const admin = require('./route/admin');
+
+// intercept request , decide what is the user login status
+app.use('/admin', (req, res, next) => {
+    //decide is it login page?
+    // decide is the user login?
+    if (req.url != '/login' && !req.session.username) {
+        res.redirect('/admin/login');
+    } else {
+        next()
+    }
+})
+
 
 app.use('/home', home);
 app.use('/admin', admin);

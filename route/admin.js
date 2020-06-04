@@ -28,7 +28,14 @@ admin.post('/login', async(req, res) => {
         //after email matched: check password after encryption
         let passwordCheck = await bcrypt.compare(password, user.password);
         if (passwordCheck) {
-            res.send("login success")
+            //"login success"
+            //pass the user name to list
+            req.session.username = user.username;
+
+            req.app.locals.userInfo = user;
+            // to new page
+            res.redirect('/admin/user');
+
         } else {
             return res.status(400).render('admin/error', { msg: "password error, will return to login in 2s" })
         }
@@ -37,8 +44,12 @@ admin.post('/login', async(req, res) => {
     }
 })
 
+//user route 
 admin.get('/user', (req, res) => {
-    res.render('admin/user')
+    res.render('admin/user', {
+        msg: req.session.username
+
+    });
 });
 
 module.exports = admin;
