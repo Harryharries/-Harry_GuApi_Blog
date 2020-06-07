@@ -19,4 +19,12 @@ admin.post('/user-edit', require('./admin/user-edit-fn.js'))
 admin.post('/user-modify', require('./admin/user-modify'))
 
 admin.get('/delete', require('./admin/user-delete'))
+
+//article list page
+admin.get('/article', require('./admin/article'));
+
+//article edit page
+admin.get('/article-edit', require('./admin/article-edit'));
+
+admin.post('/article-add', require('./admin/article-add'))
 module.exports = admin;

@@ -6,31 +6,12 @@
     <!-- 主体内容 -->
     <div class="content">
         {{include './common/aside.art'}}
-            <ul class="menu list-unstyled">
-                <li>
-                    <a class="item active" href="user.html">
-						<span class="glyphicon glyphicon-user"></span>
-						用户管理
-					</a>
-                </li>
-                <li>
-                    <a class="item" href="article.html">
-			  			<span class="glyphicon glyphicon-th-list"></span>
-			  			文章管理
-			  		</a>
-                </li>
-            </ul>
-            <div class="cprt">
-                Powered by <a href="http://www.itheima.com/" target="_blank">黑马程序员</a>
-            </div>
-        </div>
-        <!-- 侧边栏 -->
         <div class="main">
         	<!-- 分类标题 -->
             <div class="title">
                 <h4>文章</h4>
                 <span>找到1篇文章</span>
-                <a href="article-edit.html" class="btn btn-primary new">发布新文章</a>
+                <a href="/admin/article-edit" class="btn btn-primary new">new post</a>
             </div>
             <!-- /分类标题 -->
             <!-- 内容列表 -->

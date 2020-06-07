@@ -1,6 +1,9 @@
 const { User } = require('../../model/user')
 
 module.exports = async(req, res) => {
+
+    req.app.locals.currentLink = 'user';
+
     //get id in addresss
     const { message, id } = req.query;
 
