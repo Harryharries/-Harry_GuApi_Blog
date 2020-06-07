@@ -4,18 +4,18 @@
         <li>
             <a class="item active" href="user.html">
                 <span class="glyphicon glyphicon-user"></span>
-                用户管理
+                user management
             </a>
         </li>
         <li>
             <a class="item" href="article.html">
                 <span class="glyphicon glyphicon-th-list"></span>
-                文章管理
+                article management
             </a>
         </li>
     </ul>
     <div class="cprt">
-        Powered by <a href="http://www.itheima.com/" target="_blank">黑马程序员</a>
+        <a target="_blank"> Zhengyu GuApi</a>
     </div>
 </div>
 <!-- 侧边栏 -->

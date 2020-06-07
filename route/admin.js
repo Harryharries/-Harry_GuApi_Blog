@@ -1,55 +1,20 @@
 const express = require('express');
 
-const bcrypt = require('bcrypt');
-
-//import user collection constructor
-const { User } = require('../model/user')
-
 const admin = express.Router();
 
-admin.get('/login', (req, res) => {
-    res.render('admin/login')
-});
+admin.get('/login', require('./admin/loginPage'));
 
-admin.post('/login', async(req, res) => {
-    // recevie request param
-    //res.send(req.body)
-    const { email, password } = req.body;
-    // if there is no entered email:
-    if (email.trim().length == 0 || password.trim().length == 0) {
-        return res.status(400).send('<h4>email address or password error</h4>');
-        //alert("email address or password can not be empty");
-        //return false
-    }
-
-    let user = await User.findOne({ email: email })
-
-    if (user) {
-        //after email matched: check password after encryption
-        let passwordCheck = await bcrypt.compare(password, user.password);
-        if (passwordCheck) {
-            //"login success"
-            //pass the user name to list
-            req.session.username = user.username;
-
-            req.app.locals.userInfo = user;
-            // to new page
-            res.redirect('/admin/user');
-
-        } else {
-            return res.status(400).render('admin/error', { msg: "password error, will return to login in 2s" })
-        }
-    } else {
-        return res.status(400).render('admin/error', { msg: "email address error, will return to login in 2s" })
-    }
-})
+//login
+admin.post('/login', require('./admin/login'))
 
 //user route 
-admin.get('/user', (req, res) => {
-    res.render('admin/user', {
-        msg: req.session.username
+admin.get('/user', require('./admin/userPage'));
 
-    });
-});
+admin.get('/logout', require('./admin/logout'));
 
+admin.get('/user-edit', require('./admin/user-edit'))
+
+admin.post('/user-edit', require('./admin/user-edit-fn.js'))
+
+admin.post('/user-modify', require('./admin/user-modify'))
 module.exports = admin;

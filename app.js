@@ -35,19 +35,22 @@ const home = require('./route/home');
 const admin = require('./route/admin');
 
 // intercept request , decide what is the user login status
-app.use('/admin', (req, res, next) => {
-    //decide is it login page?
-    // decide is the user login?
-    if (req.url != '/login' && !req.session.username) {
-        res.redirect('/admin/login');
-    } else {
-        next()
-    }
-})
+app.use('/admin', require('./middleware/loginGuard'));
 
 
 app.use('/home', home);
 app.use('/admin', admin);
+
+app.use((err, req, res, next) => {
+    const result = JSON.parse(err)
+    let params = [];
+    for (let attr in result) {
+        if (attr != 'path') {
+            params.push(attr + '=' + result[attr]);
+        }
+    }
+    res.redirect(`${result.path}?${params.join('&')}`);
+})
 
 //since  80 is default
 app.listen(80)
