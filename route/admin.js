@@ -26,5 +26,7 @@ admin.get('/article', require('./admin/article'));
 //article edit page
 admin.get('/article-edit', require('./admin/article-edit'));
 
+//article add feature
 admin.post('/article-add', require('./admin/article-add'))
+
 module.exports = admin;

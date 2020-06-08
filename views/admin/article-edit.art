@@ -8,21 +8,21 @@
         <div class="main">
             <!-- subtitle -->
             <div class="title">
-                <h4>5b9a716cb2d2bf17706bcc0a</h4>
+                <h4>ID: {{@userInfo._id}}</h4>
             </div>
-            <!--
+            <!-- FOR file upload, the submit form must be binary
             enctype is specific form data encoding type
             multipart/form-data -> binary type
             -->
 
-            <form class="form-container" action = "/admin/article-add" method="post">
+            <form class="form-container" action = "/admin/article-add" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>title</label>
                     <input name = "title" type="text" class="form-control" placeholder="please enter the title">
                 </div>
                 <div class="form-group">
                     <label>author</label>
-                    <input name = "author" type="text" class="form-control" readonly>
+                    <input name = "author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
                 </div>
                 <div class="form-group">
                     <label>publish Date</label>
@@ -31,9 +31,9 @@
                 
                 <div class="form-group">
                    <label for="exampleInputFile">cover</label>
-                   <input  name = "cover" type="file">
+                   <input  name = "cover" type="file" id="file">
                    <div class="thumbnail-waper">
-                       <img class="img-thumbnail" src="">
+                       <img class="img-thumbnail" src="" id="preview">
                    </div>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,20 @@
                     console.error( error );
                 });
 
+        var file = document.querySelector('#file');
+        var preview = document.querySelector('#preview');
+        file.onchange = function() {
+            var reader = new FileReader();
+            //console.log();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function(){
+                console.log(reader.result)
+                preview.src = reader.result;
+
+            }
+        }   
+
         // 获取数据
         // const editorData = editor.getData();
     </script>
-{{block}}
+{{/block}}

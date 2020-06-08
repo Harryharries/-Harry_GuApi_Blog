@@ -7,7 +7,7 @@ const articleSchema = new mongoose.Schema({
         type: String,
         maxlength: 40,
         minlength: 2,
-        required: [ture, 'please give a title']
+        required: [true, 'please give a title']
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
