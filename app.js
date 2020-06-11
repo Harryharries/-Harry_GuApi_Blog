@@ -6,6 +6,10 @@ const bodyPasrser = require('body-parser');
 const session = require('express-session')
     //path handling
 const path = require('path');
+
+const template = require('art-template');
+const dateFormat = require('dateformat');
+
 //create server
 const app = express();
 
@@ -28,8 +32,14 @@ app.set('view engine', 'art');
 // define the tamplate engine
 app.engine('art', require('express-art-template'));
 
+// import dateFormat into template
+template.defaults.imports.dateFormat = dateFormat;
+
 //use static resource all of resource is in the dir
 app.use(express.static(path.join(__dirname, 'public')));
+
+//swap env
+console.log(process.env.NODE_ENV)
 
 const home = require('./route/home');
 const admin = require('./route/admin');
