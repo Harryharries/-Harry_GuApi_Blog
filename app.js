@@ -10,6 +10,9 @@ const path = require('path');
 const template = require('art-template');
 const dateFormat = require('dateformat');
 
+const morgan = require('morgan');
+const config = require('config');
+
 //create server
 const app = express();
 
@@ -38,8 +41,15 @@ template.defaults.imports.dateFormat = dateFormat;
 //use static resource all of resource is in the dir
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log(config.get('title'))
+
 //swap env
-console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV == "development") {
+    console.log("YOU ARE IN Development env")
+    app.use(morgan('dev'))
+} else {
+    console.log("WELCOME! DEAR CUSTOMER!")
+}
 
 const home = require('./route/home');
 const admin = require('./route/admin');
